@@ -3,20 +3,19 @@ kind: Ingress
 metadata:
   name: reactjs-frontend-ingress
   annotations:
-    kubernetes.io/ingress.class: alb
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/success-code: 200
+    kubernetes.io/ingress.class: "alb"
+    alb.ingress.kubernetes.io/scheme: "internet-facing"  
+    alb.ingress.kubernetes.io/target-type: "ip"  
+    alb.ingress.kubernetes.io/success-code: "200"  
 spec:
   rules:
-    - host: frontend.cloudraja.freeddns.org
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ include "reactjs-frontend.name" . }}
-                port:
-                  number: 80
-
+  - host: reactjs.cloudraja.freeddns.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: reactjs-frontend-service
+            port:
+              number: 80
