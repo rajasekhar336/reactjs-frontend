@@ -1,0 +1,12 @@
+image:
+  repository: "075884725528.dkr.ecr.ap-south-1.amazonaws.com/react-php/frontend"
+  tag: "latest"
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 80
+
+ingress:
+  enabled: true
+  host: "frontend.cloudraja.freeddns.org"

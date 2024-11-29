@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reactjs-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: reactjs-frontend
+  template:
+    metadata:
+      labels:
+        app: reactjs-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 80
