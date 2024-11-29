@@ -29,5 +29,5 @@ resources:
 # Optional: If you need any environment variables or configmaps
 env:
   - name: FRONTEND_URL
-    value: "https://frontend.cloudraja.freeddns.org"
+    value: "http://frontend.cloudraja.freeddns.org"
 

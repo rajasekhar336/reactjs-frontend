@@ -19,7 +19,7 @@ spec:
             - containerPort: 80  # The port your application is exposed on
           env:
             - name: FRONTEND_URL
-              value: "https://frontend.cloudraja.freeddns.org"  # Example environment variable
+              value: "http://frontend.cloudraja.freeddns.org"  # Example environment variable
           resources:
             limits:
               cpu: "500m"  # Resource limit for CPU
