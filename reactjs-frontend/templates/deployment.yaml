@@ -1,21 +1,29 @@
-# react-helm-app/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: react-app
+  name: {{ include "reactjs-frontend.name" . }}
+  labels:
+    app: {{ include "reactjs-frontend.name" . }}
 spec:
   replicas: {{ .Values.autoscaling.minReplicas }}
   selector:
     matchLabels:
-      app: react-app
+      app: {{ include "reactjs-frontend.name" . }}
   template:
     metadata:
       labels:
-        app: react-app
+        app: {{ include "reactjs-frontend.name" . }}
     spec:
       containers:
-        - name: react-app
+        - name: react-frontend
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
-            - containerPort: 80
+            - containerPort: {{ .Values.service.port }}
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
 

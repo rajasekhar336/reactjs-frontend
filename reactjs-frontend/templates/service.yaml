@@ -1,11 +1,12 @@
-# react-helm-app/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: react-app-service
+  name: {{ include "reactjs-frontend.name" . }}
 spec:
-  type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: 80
+      targetPort: {{ .Values.service.port }}
   selector:
-    app: react-app
+    app: {{ include "reactjs-frontend.name" . }}
+  type: LoadBalancer
+
