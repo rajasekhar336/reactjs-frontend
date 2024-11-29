@@ -1,12 +1,33 @@
+# Frontend application settings
 image:
   repository: "075884725528.dkr.ecr.ap-south-1.amazonaws.com/react-php/frontend"
   tag: "latest"
 
+serviceAccount:
+  create: true  # Set to true to create the ServiceAccount
+  automount: false  # Optional: control token mounting
+
 service:
-  type: LoadBalancer
+  type: LoadBalancer  # Exposes the frontend via a LoadBalancer
   port: 80
   targetPort: 80
 
 ingress:
   enabled: true
-  host: "frontend.cloudraja.freeddns.org"
+  host: "frontend.cloudraja.freeddns.org"  # Frontend URL
+  path: /
+  annotations: {}
+  
+resources: 
+  limits: 
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "250m"
+    memory: "256Mi"
+
+# Optional: If you need any environment variables or configmaps
+env:
+  - name: FRONTEND_URL
+    value: "https://frontend.cloudraja.freeddns.org"
+
