@@ -7,7 +7,7 @@ pipeline {
         ECR_REPO = "075884725528.dkr.ecr.ap-south-1.amazonaws.com/react-php/frontend"
         HELM_RELEASE_NAME = "react-frontend-release"
         K8S_NAMESPACE = "default"
-        CLUSTER_NAME = "react-php"
+        CLUSTER_NAME = "react-php-cluster"
         KUBECONFIG_PATH = "./kubeconfig"
     }
 
