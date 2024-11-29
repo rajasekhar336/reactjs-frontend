@@ -1,33 +1,26 @@
-# Frontend application settings
+# react-helm-app/values.yaml
 image:
-  repository: "075884725528.dkr.ecr.ap-south-1.amazonaws.com/react-php/frontend"
-  tag: "latest"
-
-serviceAccount:
-  create: true  # Set to true to create the ServiceAccount
-  automount: false  # Optional: control token mounting
+  repository: 075884725528.dkr.ecr.ap-south-1.amazonaws.com/react-php/frontend
+  tag: latest
 
 service:
-  type: LoadBalancer  # Exposes the frontend via a LoadBalancer
+  type: NodePort
   port: 80
-  targetPort: 80
 
 ingress:
   enabled: true
-  host: "frontend.cloudraja.freeddns.org"  # Frontend URL
-  path: /
-  annotations: {}
-  
-resources: 
-  limits: 
-    cpu: "500m"
-    memory: "512Mi"
-  requests:
-    cpu: "250m"
-    memory: "256Mi"
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+  hosts:
+    - host: frontend.cloudraja.freeddns.org
+      paths:
+        - path: /
+          pathType: Prefix
 
-# Optional: If you need any environment variables or configmaps
-env:
-  - name: FRONTEND_URL
-    value: "http://frontend.cloudraja.freeddns.org"
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 50
 

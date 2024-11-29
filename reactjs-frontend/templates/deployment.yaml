@@ -1,42 +1,21 @@
+# react-helm-app/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: reactjs-frontend
+  name: react-app
 spec:
-  replicas: 2  # You can adjust the number of replicas
+  replicas: {{ .Values.autoscaling.minReplicas }}
   selector:
     matchLabels:
-      app: reactjs-frontend
+      app: react-app
   template:
     metadata:
       labels:
-        app: reactjs-frontend
+        app: react-app
     spec:
       containers:
-        - name: frontend
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"  # Image repository and tag
+        - name: react-app
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
-            - containerPort: 80  # The port your application is exposed on
-          env:
-            - name: FRONTEND_URL
-              value: "http://frontend.cloudraja.freeddns.org"  # Example environment variable
-          resources:
-            limits:
-              cpu: "500m"  # Resource limit for CPU
-              memory: "512Mi"  # Resource limit for Memory
-            requests:
-              cpu: "250m"  # CPU request
-              memory: "256Mi"  # Memory request
-          livenessProbe:
-            httpGet:
-              path: /  # Health check endpoint
-              port: 80
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /  # Readiness check endpoint
-              port: 80
-            initialDelaySeconds: 3
-            periodSeconds: 5
+            - containerPort: 80
 
